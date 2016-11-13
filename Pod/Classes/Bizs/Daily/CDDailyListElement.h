@@ -9,6 +9,5 @@
 #import <ElementKit/ElementKit.h>
 #import <DZChatUI/DZChatUI.h>
 
-@interface CDDailyListElement : EKAdjustTableElement 
-
+@interface CDDailyListElement : EKAdjustTableElement  <DZInputProtocol>
 @end

@@ -9,5 +9,9 @@
 #import "CDMainDirector.h"
 
 @implementation CDMainDirector
-
+- (void) makeKeyWindowAndVisible
+{
+    [super makeKeyWindowAndVisible];
+    [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
+}
 @end
