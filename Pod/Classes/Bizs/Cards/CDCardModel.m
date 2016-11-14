@@ -22,3 +22,10 @@
     return model;
 }
 @end
+
+
+@implementation CDCardImageData
+@end
+
+@implementation CDCardAudioData
+@end

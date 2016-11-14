@@ -22,6 +22,8 @@
     _backgroundContentView.backgroundColor = [UIColor flatWhiteColor];
     _backgroundContentView.layer.cornerRadius = 4;
     _backgroundContentView.layer.shouldRasterize = YES;
+    _backgroundContentView.userInteractionEnabled = YES;
+    _backgroundContentView.layer.masksToBounds = YES;
     INIT_SUBVIEW_UILabel(self.contentView, _timeLabel);
     _timeLabel.numberOfLines  = 1;
     _timeLabel.font = [UIFont systemFontOfSize:13];

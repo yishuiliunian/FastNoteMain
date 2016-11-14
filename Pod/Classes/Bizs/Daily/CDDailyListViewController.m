@@ -24,7 +24,7 @@
     centerColor = [UIColor flatOrangeColor];
 
     UIColor* endColor = [UIColor colorWithHexString:@"7d7988" withAlpha:0.5];
-    self.view.backgroundColor = [UIColor colorWithGradientStyle:UIGradientStyleRadial withFrame:self.view.bounds andColors:@[beginColor, centerColor, endColor]];
+    self.view.backgroundColor = [UIColor flatMintColor];
 }
 - (void) viewDidAppear:(BOOL)animated
 {

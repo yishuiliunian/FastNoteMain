@@ -14,6 +14,7 @@
 #import "CDDBConnection.h"
 #import "DZImageCache.h"
 #import "DZFileUtils.h"
+#import "YYModel.h"
 
 @interface CDDailyListElement ()<DZInputProtocol>
 @end
@@ -36,7 +37,9 @@
     
     NSInteger section = _dataController.numberOfSections - 1 > 0 ? _dataController.numberOfSections -1 : 0;
     NSInteger row = [_dataController numberAtSection:section] -1 > 0 ?   [_dataController numberAtSection:section] -1 : 0;
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if (_dataController.numbersOfObject > 0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 - (void) willBeginHandleResponser:(CDDailyListViewController *)responser
@@ -77,12 +80,32 @@
         NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.jpg",model.uuid]);
         [UIImageJPEGRepresentation(image, 1.0) writeToFile:filepath atomically:YES];
         filepath = [filepath stringByReplacingOccurrencesOfString:DZDocumentsPath() withString:@""];
-        model.data = [filepath dataUsingEncoding:NSUTF8StringEncoding];
+        CDCardImageData* data = [CDCardImageData new];
+        data.filePath = filepath;
+        data.width = image.size.width;
+        data.height = image.size.height;
+        model.data = [data yy_modelToJSONData];
         return model;
     }];
 }
 
-
+- (void) inputVoice:(NSURL *)url
+{
+    [self insertNewCard:^CDCardModel *{
+        CDCardModel* model = [CDCardModel newCardWithType:CDCardAudio];
+        NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.arm",model.uuid]);
+        NSURL* aimURL = [NSURL fileURLWithPath:filepath];
+        NSError* error;
+        [[NSFileManager defaultManager] moveItemAtURL:url toURL:aimURL error:&error];
+        
+        filepath = [filepath stringByReplacingOccurrencesOfString:DZDocumentsPath() withString:@""];
+        CDCardAudioData* data = [CDCardAudioData new];
+        data.filePath = filepath;
+        data.duration = 20;
+        model.data = [data yy_modelToJSONData];
+        return model;
+    }];
+}
 - (void) insertNewCard:(CDCardModel*(^)())buildBlock
 {
     CDCardModel* model = buildBlock();

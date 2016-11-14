@@ -11,7 +11,8 @@
 
 typedef NS_ENUM(NSInteger, CDCardType) {
     CDCardText,
-    CDCardImage
+    CDCardImage,
+    CDCardAudio
 };
 
 @interface CDCardModel : NSObject
@@ -24,4 +25,17 @@ typedef NS_ENUM(NSInteger, CDCardType) {
 @property (nonatomic, assign) BOOL showTime;
 
 + (CDCardModel*) newCardWithType:(CDCardType)type;
+@end
+
+
+@interface CDCardImageData : NSObject
+@property (nonatomic, strong) NSString* filePath;
+@property (nonatomic, assign) int width;
+@property (nonatomic, assign) int height;
+@end
+
+
+@interface CDCardAudioData : NSObject
+@property (nonatomic, strong) NSString* filePath;
+@property (nonatomic, assign) float duration;
 @end

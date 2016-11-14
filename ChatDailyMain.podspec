@@ -37,4 +37,5 @@ TODO: Add long description of the pod here.aaa
   # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'LKDBHelper'
 
+  s.dependency 'MGSwipeTableCell'
 end

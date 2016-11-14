@@ -11,11 +11,14 @@
 #import "CDCardBaseCell.h"
 #import "CDCardSingleTextElement.h"
 #import "CDCardStyleImageElement.h"
+#import "DateTools.h"
+#import "CDCardStyleAudioElement.h"
 
 @interface CDCardStyleElement()
 {
     CGRect _backgroundRect;
     CGRect _timeRect;
+    //
 }
 @end
 @implementation CDCardStyleElement
@@ -28,6 +31,8 @@
             break;
         case CDCardImage:
             return [[CDCardStyleImageElement alloc] initWithModel:model];
+        case CDCardAudio:
+            return [[CDCardStyleAudioElement alloc] initWithModel:model];
         default:
             return [[CDCardStyleElement alloc] initWithModel:model];
             break;
@@ -105,7 +110,7 @@
 {
     [super willBeginHandleResponser:responser];
     if (self.cardModel.showTime) {
-        responser.timeLabel.text = @"十点20";
+        responser.timeLabel.text = [self.cardModel.updateTime timeAgoSinceNow];
     }
 }
 @end

@@ -21,6 +21,7 @@
     _contentImageView.layer.masksToBounds = YES;
     _contentImageView.layer.shouldRasterize = YES;
     _contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _contentImageView.layer.cornerRadius = 4;
     return self;
 }
 @end
