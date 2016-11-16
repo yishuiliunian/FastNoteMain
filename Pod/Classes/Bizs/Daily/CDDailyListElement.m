@@ -134,6 +134,18 @@
 }
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        EKCellElement* ele = [_dataController objectAtIndexPath:EKIndexPathFromNS(indexPath)];
+        [_dataController removeObjectAtIndexPath:EKIndexPathFromNS(indexPath)];
+        if ([ele respondsToSelector:@selector(onHandleDeleteEditing)]) {
+            [ele onHandleDeleteEditing];
+        }
+        
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+    }
 }
+
+
 @end

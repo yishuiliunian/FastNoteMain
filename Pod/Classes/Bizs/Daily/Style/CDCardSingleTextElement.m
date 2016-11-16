@@ -71,4 +71,14 @@
     cell.contentLabel.textLayout = _textLayout;
 }
 
+- (NSArray*) customPopupMenu
+{
+    QBPopupMenuItem* copyItem = [[QBPopupMenuItem alloc] initWithTitle:@"复制" target:self action:@selector(copyTheText)];
+    return @[copyItem];
+}
+
+- (void) copyTheText
+{
+    [[UIPasteboard generalPasteboard]  setString:_contentStr];
+}
 @end

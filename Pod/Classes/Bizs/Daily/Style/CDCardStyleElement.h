@@ -8,6 +8,9 @@
 
 #import <ElementKit/ElementKit.h>
 #import "CDCardModel.h"
+#import "QBPopupMenu.h"
+
+
 @interface CDCardStyleElement : EKAdjustCellElement
 {
     @protected
@@ -21,4 +24,6 @@
 
 - (void) buildSubContentObjects;
 - (void) prelayoutContent:(CGRect)contentRect height:(CGFloat*)height;
+
+- (NSArray*) customPopupMenu;
 @end

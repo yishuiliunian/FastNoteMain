@@ -37,13 +37,11 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.scrollNavigationBar.scrollView = self.tableView;
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 - (void) viewDidAppear:(BOOL)animated
 {

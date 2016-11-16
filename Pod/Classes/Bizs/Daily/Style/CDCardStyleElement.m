@@ -13,7 +13,8 @@
 #import "CDCardStyleImageElement.h"
 #import "DateTools.h"
 #import "CDCardStyleAudioElement.h"
-
+#import "CDDBConnection.h"
+#import "QBPopupMenu.h"
 @interface CDCardStyleElement()
 {
     CGRect _backgroundRect;
@@ -112,5 +113,36 @@
     if (self.cardModel.showTime) {
         responser.timeLabel.text = [self.cardModel.updateTime formattedDateWithStyle:NSDateFormatterShortStyle];
     }
+    responser.interactDelegate = self;
 }
+
+- (void) onHandleDeleteEditing
+{
+    [CDShareDBConnection.dbhelper deleteToDB:self.cardModel];
+}
+- (NSArray*) customPopupMenu
+{
+    return nil;
+}
+
+
+- (void) deleteThisElement
+{
+    NSIndexPath* indexPath = [self.superTableView indexPathForCell:self.uiEventPool];
+    if (indexPath && indexPath.row != NSNotFound) {
+        [self onHandleDeleteEditing];
+        [self notifyRemoveThisElement];
+    }
+}
+
+- (NSArray*) messagePopUpMenus
+{
+    NSMutableArray* items = [NSMutableArray new];
+    QBPopupMenuItem* item = [[QBPopupMenuItem alloc] initWithTitle:@"删除" target:self action:@selector(deleteThisElement)];
+    [items addObject:item];
+    NSArray* custom = [self customPopupMenu];
+    [items addObjectsFromArray:custom];
+    return items;
+}
+
 @end
