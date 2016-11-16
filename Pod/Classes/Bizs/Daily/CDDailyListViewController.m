@@ -13,21 +13,37 @@
 #import "DZShyNavigationBar.h"
 
 @implementation CDDailyListViewController
+- (void) loadView
+{
+    UITableView* tableView = self.tableView;
+    self.view = [UIView new];
+    [self.view addSubview:self.tableView];
+}
+
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     DZExtendShyNavigationBar(self.tableView, self);
+    self.tableView.backgroundColor = [UIColor flatMintColor];
+
 }
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    UIColor* beginColor = [UIColor colorWithHexString:@"647196" withAlpha:0.5];
-    UIColor * centerColor = [UIColor colorWithHexString:@"7d7980" withAlpha:0.5];
-    centerColor = [UIColor flatOrangeColor];
+    self.tableView.frame = self.view.bounds;
+}
 
-    UIColor* endColor = [UIColor colorWithHexString:@"7d7988" withAlpha:0.5];
-    self.view.backgroundColor = [UIColor flatMintColor];
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.scrollNavigationBar.scrollView = self.tableView;
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 - (void) viewDidAppear:(BOOL)animated
 {

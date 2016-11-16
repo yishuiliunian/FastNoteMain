@@ -15,7 +15,7 @@
 #import "DZImageCache.h"
 #import "DZFileUtils.h"
 #import "YYModel.h"
-
+#import <AVFoundation/AVFoundation.h>
 @interface CDDailyListElement ()<DZInputProtocol>
 @end
 
@@ -93,7 +93,7 @@
 {
     [self insertNewCard:^CDCardModel *{
         CDCardModel* model = [CDCardModel newCardWithType:CDCardAudio];
-        NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.arm",model.uuid]);
+        NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.acc",model.uuid]);
         NSURL* aimURL = [NSURL fileURLWithPath:filepath];
         NSError* error;
         [[NSFileManager defaultManager] moveItemAtURL:url toURL:aimURL error:&error];
@@ -101,7 +101,8 @@
         filepath = [filepath stringByReplacingOccurrencesOfString:DZDocumentsPath() withString:@""];
         CDCardAudioData* data = [CDCardAudioData new];
         data.filePath = filepath;
-        data.duration = 20;
+        
+        data.duration = [[AVAudioPlayer alloc] initWithContentsOfURL:aimURL error:nil].duration;
         model.data = [data yy_modelToJSONData];
         return model;
     }];

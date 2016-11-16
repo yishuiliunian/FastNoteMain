@@ -9,5 +9,5 @@
 #import "CDCardBaseCell.h"
 
 @interface CDCardStyleAudioCell : CDCardBaseCell
-
+@property (nonatomic, strong, readonly) UILabel* durationLabel;
 @end

@@ -110,7 +110,7 @@
 {
     [super willBeginHandleResponser:responser];
     if (self.cardModel.showTime) {
-        responser.timeLabel.text = [self.cardModel.updateTime timeAgoSinceNow];
+        responser.timeLabel.text = [self.cardModel.updateTime formattedDateWithStyle:NSDateFormatterShortStyle];
     }
 }
 @end
