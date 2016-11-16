@@ -23,6 +23,9 @@
         [inputVC showTextInputWithPlaceholder:nil];
     }];
     [inputVC registerLifeCircleAction:onceAction];
-    return inputVC;
+    
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:inputVC];
+    inputVC.title = @"FastDiary";
+    return nav;
 }
 @end

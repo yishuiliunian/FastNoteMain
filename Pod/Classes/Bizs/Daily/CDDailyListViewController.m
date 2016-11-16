@@ -10,11 +10,14 @@
 #import "CDDailyListViewController.h"
 #import <Chameleon.h>
 #import <DZViewControllerLifeCircleAction.h>
+#import "DZShyNavigationBar.h"
+
 @implementation CDDailyListViewController
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    DZExtendShyNavigationBar(self.tableView, self);
 }
 - (void) viewWillLayoutSubviews
 {
