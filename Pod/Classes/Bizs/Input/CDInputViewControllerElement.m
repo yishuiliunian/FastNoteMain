@@ -11,7 +11,6 @@
 #import "CDDailyListElement.h"
 #import "CDDailyListViewController.h"
 #import <DZViewControllerLifeCircleAction.h>
-#import <GTScrollNavigationBar.h>
 
 @implementation CDInputViewControllerElement
 

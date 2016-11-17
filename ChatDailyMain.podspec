@@ -38,5 +38,6 @@ TODO: Add long description of the pod here.aaa
   s.dependency 'LKDBHelper'
 
   s.dependency 'MGSwipeTableCell'
-  s.dependency 'GTScrollNavigationBar'
+  s.dependency 'Bugly'
+  s.dependency 'TalkingData-AppAnalytics'
 end

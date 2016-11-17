@@ -10,6 +10,8 @@
 #import <DZURLRoute.h>
 #import "CDURLRouteDefines.h"
 #import "MWPhotoBrowser.h"
+#import <Bugly/Bugly.h>
+#import <TalkingData.h>
 @implementation CDMainDirector
 
 - (instancetype) initWithRootScene:(EKElement *)rootScene
@@ -24,6 +26,8 @@
 
 - (void) setupDirector
 {
+    [Bugly startWithAppId:@"e35021ccc5"];
+    [TalkingData sessionStarted:@"0E88CB8D3E834745AF05FCC3DEAA2156" withChannelId:@"appstore"];
     [[DZURLRoute defaultRoute] addRoutePattern:kCDURLSHowPhotos handler:^DZURLRouteResponse *(DZURLRouteRequest *request) {
       
         NSArray* originPhotos = [request.context valueForKey:@"photos"];
