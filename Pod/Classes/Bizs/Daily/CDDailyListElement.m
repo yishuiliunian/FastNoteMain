@@ -15,6 +15,7 @@
 #import "DZImageCache.h"
 #import "DZFileUtils.h"
 #import "YYModel.h"
+#import "YHLocation.h"
 #import <AVFoundation/AVFoundation.h>
 @interface CDDailyListElement ()<DZInputProtocol>
 @end
@@ -104,6 +105,22 @@
         
         data.duration = [[AVAudioPlayer alloc] initWithContentsOfURL:aimURL error:nil].duration;
         model.data = [data yy_modelToJSONData];
+        return model;
+    }];
+}
+- (void) inputLocation:(YHLocation *)location
+{
+    [self insertNewCard:^CDCardModel *{
+        CDCardModel* model = [CDCardModel newCardWithType:CDCardMap];
+        
+        CDCardMapData* mapData = [CDCardMapData new];
+        mapData.longtitude = location.longtitude;
+        mapData.latitude = location.latitude;
+        mapData.title = location.name;
+        mapData.detail = location.address;
+        
+        model.data = [mapData yy_modelToJSONData];
+        
         return model;
     }];
 }

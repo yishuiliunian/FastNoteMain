@@ -12,6 +12,7 @@
 #import "MWPhotoBrowser.h"
 #import <Bugly/Bugly.h>
 #import <TalkingData.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 @implementation CDMainDirector
 
 - (instancetype) initWithRootScene:(EKElement *)rootScene
@@ -27,6 +28,8 @@
 - (void) setupDirector
 {
     [Bugly startWithAppId:@"e35021ccc5"];
+    [AMapServices sharedServices].apiKey = @"640feccb852747765634398a6365a64d";
+    
     [TalkingData sessionStarted:@"0E88CB8D3E834745AF05FCC3DEAA2156" withChannelId:@"appstore"];
     [[DZURLRoute defaultRoute] addRoutePattern:kCDURLSHowPhotos handler:^DZURLRouteResponse *(DZURLRouteRequest *request) {
       

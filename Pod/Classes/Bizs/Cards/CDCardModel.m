@@ -29,3 +29,6 @@
 
 @implementation CDCardAudioData
 @end
+
+@implementation CDCardMapData
+@end

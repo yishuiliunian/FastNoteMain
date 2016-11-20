@@ -15,6 +15,7 @@
 #import "CDCardStyleAudioElement.h"
 #import "CDDBConnection.h"
 #import "QBPopupMenu.h"
+#import "CDCardStyleMapElement.h"
 @interface CDCardStyleElement()
 {
     CGRect _backgroundRect;
@@ -34,6 +35,8 @@
             return [[CDCardStyleImageElement alloc] initWithModel:model];
         case CDCardAudio:
             return [[CDCardStyleAudioElement alloc] initWithModel:model];
+        case CDCardMap:
+            return [[CDCardStyleMapElement alloc] initWithModel:model];
         default:
             return [[CDCardStyleElement alloc] initWithModel:model];
             break;
