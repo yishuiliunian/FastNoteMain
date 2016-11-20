@@ -60,6 +60,7 @@
         return self;
     }
     _cardModel = model;
+    _cardModel.showTime = YES;
     [self buildSubContentObjects];
     [self prelayout];
     return self;
@@ -114,7 +115,15 @@
 {
     [super willBeginHandleResponser:responser];
     if (self.cardModel.showTime) {
-        responser.timeLabel.text = [self.cardModel.updateTime formattedDateWithStyle:NSDateFormatterShortStyle];
+        NSString* time = @"";
+        if ([self.cardModel.updateTime isToday]) {
+            time = [self.cardModel.updateTime formattedDateWithFormat:@"HH:mm"];
+        } else if (self.cardModel.updateTime.month == [NSDate date].month) {
+            time = [self.cardModel.updateTime formattedDateWithFormat:@"MM HH:mm"];
+        } else {
+            time = [self.cardModel.updateTime formattedDateWithStyle:NSDateFormatterShortStyle];
+        }
+        responser.timeLabel.text = time;
     }
     responser.interactDelegate = self;
 }

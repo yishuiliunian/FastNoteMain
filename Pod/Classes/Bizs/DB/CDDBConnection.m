@@ -67,6 +67,6 @@
 
 - (NSArray*) getCardsFromIndex:(int64_t)index
 {
-    return  [_dbhelper search:[CDCardModel class] where:[NSString stringWithFormat:@" cardIndex < %d ", index] orderBy:@"cardIndex DESC" offset:0 count:self.frameCount];
+    return  [_dbhelper search:[CDCardModel class] where:[NSString stringWithFormat:@" cardIndex < %d ", index] orderBy:@"cardIndex ASC" offset:0 count:self.frameCount];
 }
 @end

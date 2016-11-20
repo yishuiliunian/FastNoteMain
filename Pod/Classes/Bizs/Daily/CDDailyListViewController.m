@@ -13,7 +13,9 @@
 #import "DZShyNavigationBar.h"
 #import "CBStoreHouseRefreshControl.h"
 #import "DZObjectProxy.h"
-
+#import "DZImageCache.h"
+#import "CDSettingElement.h"
+#import "DZChatUI.h"
 @interface CDDailyListViewController ()
 @property (nonatomic, strong) DZDelegateMiddleProxy* delegateProxy;
 @end
@@ -27,8 +29,11 @@
     UIRefreshControl* refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(pullToReferesh) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
+    
+
 
 }
+
 
 
 

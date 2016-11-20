@@ -26,4 +26,5 @@
 - (void) prelayoutContent:(CGRect)contentRect height:(CGFloat*)height;
 
 - (NSArray*) customPopupMenu;
+- (void) deleteThisElement;
 @end

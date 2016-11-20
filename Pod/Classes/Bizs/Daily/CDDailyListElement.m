@@ -18,6 +18,8 @@
 #import "YHLocation.h"
 #import <AVFoundation/AVFoundation.h>
 #import "CDDailyListViewController.h"
+#import "CDSettingElement.h"
+#import <Chameleon.h>
 @interface CDDailyListElement ()<DZInputProtocol>
 @end
 
@@ -35,6 +37,10 @@
         [array addObject:ele];
     }
     [_dataController updateObjects:array];
+    [_dataController sortUseBlock:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
     [super reloadData];
     
     NSInteger section = _dataController.numberOfSections - 1 > 0 ? _dataController.numberOfSections -1 : 0;
@@ -43,10 +49,19 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
+- (void) showSettings
+{
+    CDSettingElement* ele = [CDSettingElement new];
+    EKTableViewController* tableVC = [[EKTableViewController alloc] initWithElement:ele];
+    tableVC.view.backgroundColor = [UIColor colorWithHexString:@"f0eff5"];
+    [[(UIViewController*)self.uiEventPool  navigationController] pushViewController:tableVC animated:YES];
+}
 
 - (void) willBeginHandleResponser:(CDDailyListViewController *)responser
 {
     [super willBeginHandleResponser:responser];
+    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithImage:DZCachedImageByName(@"ic_action_setup") style:UIBarButtonItemStyleDone target:self action:@selector(showSettings)];
+    self.inputViewController.navigationItem.rightBarButtonItem = item;
 }
 
 - (void) pullToRefresh
@@ -194,15 +209,10 @@
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        EKCellElement* ele = [_dataController objectAtIndexPath:EKIndexPathFromNS(indexPath)];
-        [_dataController removeObjectAtIndexPath:EKIndexPathFromNS(indexPath)];
-        if ([ele respondsToSelector:@selector(onHandleDeleteEditing)]) {
-            [ele onHandleDeleteEditing];
+        CDCardStyleElement* ele = [_dataController objectAtIndexPath:EKIndexPathFromNS(indexPath)];
+        if ([ele respondsToSelector:@selector(deleteThisElement)]) {
+            [ele deleteThisElement];
         }
-        
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
     }
 }
 
