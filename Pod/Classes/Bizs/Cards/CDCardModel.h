@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, CDCardType) {
 @property (nonatomic, strong) NSString* uuid;
 @property (nonatomic, assign) CDCardType type;
 @property (nonatomic, strong) NSData* data;
-@property (nonatomic, assign) int cardIndex;
+@property (nonatomic, assign) int64_t cardIndex;
 @property (nonatomic, assign) BOOL showTime;
 
 + (CDCardModel*) newCardWithType:(CDCardType)type;

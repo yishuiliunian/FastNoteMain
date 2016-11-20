@@ -148,4 +148,9 @@
     return items;
 }
 
+- (int64_t) compareIdentifier
+{
+    return self.cardModel.cardIndex;
+}
+
 @end

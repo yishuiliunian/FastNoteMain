@@ -17,6 +17,7 @@
 #import "YYModel.h"
 #import "YHLocation.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CDDailyListViewController.h"
 @interface CDDailyListElement ()<DZInputProtocol>
 @end
 
@@ -48,9 +49,50 @@
     [super willBeginHandleResponser:responser];
 }
 
+- (void) pullToRefresh
+{
+    __block int64_t minIndex = INT64_MAX;
+    [_dataController map:^(CDCardStyleElement*   _Nonnull e) {
+        if ([e isKindOfClass:[CDCardStyleElement class]]) {
+            minIndex = MIN(e.cardModel.cardIndex, minIndex);
+        }
+    }];
+    if (minIndex != NSNotFound) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            NSArray* array = [CDShareDBConnection getCardsFromIndex:minIndex];
+            NSMutableArray* eles = [NSMutableArray new];
+            for (CDCardModel* model in array) {
+                [eles addObject:[CDCardStyleElement elementWithModel:model]];
+            }
+            [_dataController updateObjects:eles];
+            [_dataController sortUseBlock:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
+            }];
+            
+            NSMutableArray* allIndex = [NSMutableArray new];
+            for (CDCardStyleElement* ele in eles) {
+                NSIndexPath * index = [_dataController indexPathOfObject:ele];
+                if (index.row != NSNotFound) {
+                    [allIndex addObject:index];
+                }
+            }
+            
+           
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [self.tableView beginUpdates];
+               [self.tableView insertRowsAtIndexPaths:allIndex withRowAnimation:UITableViewRowAnimationAutomatic];
+               [self.tableView endUpdates];
+           });
+        });
+
+    }
+    [[(UITableViewController*)self.uiEventPool refreshControl] endRefreshing];
+    
+}
 - (void) didBeginHandleResponser:(CDDailyListViewController *)responser
 {
     [super didBeginHandleResponser:responser];
+    [self.eventBus addHandler:self priority:1 port:@selector(pullToRefresh)];
 }
 
 - (void) willRegsinHandleResponser:(CDDailyListViewController *)responser
@@ -127,7 +169,7 @@
 - (void) insertNewCard:(CDCardModel*(^)())buildBlock
 {
     CDCardModel* model = buildBlock();
-    [CDShareDBConnection updateOrInsertObject:model];
+    [CDShareDBConnection updateCard:model];
     CDCardStyleElement* ele = [CDCardStyleElement elementWithModel:model];
     NSInteger section = _dataController.numberOfSections;
     EKIndexPath indexPath = [_dataController addObject:ele];
@@ -164,5 +206,8 @@
     }
 }
 
-
+- (void) loadNextFrameOldCards
+{
+    
+}
 @end

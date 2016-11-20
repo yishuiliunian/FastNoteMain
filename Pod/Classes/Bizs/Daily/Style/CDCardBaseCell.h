@@ -12,7 +12,7 @@
 @end
 @interface CDCardBaseCell : EKAdjustTableViewCell
 @property (nonatomic, strong, readonly) UILabel* timeLabel;
-@property (nonatomic, strong, readonly) UIView* backgroundContentView;
+@property (nonatomic, strong, readonly) UIImageView* backgroundContentView;
 @property (nonatomic, weak) id<CDCardBaseCellInteractDelegate> interactDelegate;
 
 @end

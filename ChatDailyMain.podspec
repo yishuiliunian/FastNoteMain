@@ -40,4 +40,5 @@ TODO: Add long description of the pod here.aaa
   s.dependency 'MGSwipeTableCell'
   s.dependency 'Bugly'
   s.dependency 'TalkingData-AppAnalytics'
+  s.dependency 'CBStoreHouseRefreshControl'
 end

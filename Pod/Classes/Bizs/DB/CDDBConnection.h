@@ -12,6 +12,8 @@
 #define CDShareDBConnection ((CDDBConnection*)[DZDBConnectionPool shareCacheConnection])
 @class CDCardModel;
 @interface CDDBConnection : DZDBConnection
+@property (nonatomic, assign, readonly) int64_t getNextStyleID;
 - (void) updateCard:(CDCardModel*)model;
 - (NSArray*) lastCards;
+- (NSArray*) getCardsFromIndex:(int64_t)index;
 @end

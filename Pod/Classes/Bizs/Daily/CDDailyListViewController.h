@@ -9,6 +9,11 @@
 #import <ElementKit/ElementKit.h>
 
 
+@protocol CDDailyListViewControllerInterface <NSObject>
+
+- (void) pullToRefresh;
+
+@end
 @interface CDDailyListViewController : EKTableViewController
 
 @end

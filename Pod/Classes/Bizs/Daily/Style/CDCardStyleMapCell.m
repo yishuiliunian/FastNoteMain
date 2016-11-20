@@ -18,6 +18,9 @@
     }
     INIT_SUBVIEW(self.contentView, UILabel, _titleLabel);
     INIT_SUBVIEW_UILabel(self.contentView, _addressLabel);
+    _titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    _addressLabel.font = [UIFont systemFontOfSize:13];
+    _titleLabel.textAlignment = _addressLabel.textAlignment = NSTextAlignmentCenter;
     return self;
 }
 

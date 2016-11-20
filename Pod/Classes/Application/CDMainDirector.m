@@ -13,6 +13,7 @@
 #import <Bugly/Bugly.h>
 #import <TalkingData.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import <DZImageCache.h>
 @implementation CDMainDirector
 
 - (instancetype) initWithRootScene:(EKElement *)rootScene
@@ -27,6 +28,7 @@
 
 - (void) setupDirector
 {
+    [DZImageShareCache setupAssetsSourceType];
     [Bugly startWithAppId:@"e35021ccc5"];
     [AMapServices sharedServices].apiKey = @"640feccb852747765634398a6365a64d";
     

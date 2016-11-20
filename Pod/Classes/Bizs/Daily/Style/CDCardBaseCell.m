@@ -31,6 +31,7 @@
     _backgroundContentView.layer.shouldRasterize = YES;
     _backgroundContentView.userInteractionEnabled = YES;
     _backgroundContentView.layer.masksToBounds = YES;
+    _backgroundContentView.contentMode = UIViewContentModeScaleAspectFill;
     INIT_SUBVIEW_UILabel(self.contentView, _timeLabel);
     _timeLabel.numberOfLines  = 1;
     _timeLabel.font = [UIFont systemFontOfSize:13];

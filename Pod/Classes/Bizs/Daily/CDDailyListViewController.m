@@ -11,27 +11,35 @@
 #import <Chameleon.h>
 #import <DZViewControllerLifeCircleAction.h>
 #import "DZShyNavigationBar.h"
+#import "CBStoreHouseRefreshControl.h"
+#import "DZObjectProxy.h"
 
+@interface CDDailyListViewController ()
+@property (nonatomic, strong) DZDelegateMiddleProxy* delegateProxy;
+@end
 @implementation CDDailyListViewController
-- (void) loadView
-{
-    UITableView* tableView = self.tableView;
-    self.view = [UIView new];
-    [self.view addSubview:self.tableView];
-}
-
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     DZExtendShyNavigationBar(self.tableView, self);
     self.tableView.backgroundColor = [UIColor flatSkyBlueColor];
+    UIRefreshControl* refreshControl = [UIRefreshControl new];
+    [refreshControl addTarget:self action:@selector(pullToReferesh) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
 
 }
+
+
+
+- (void) pullToReferesh
+{
+    [self.eventBus performSelector:@selector(pullToRefresh)];
+}
+
 - (void) viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    self.tableView.frame = self.view.bounds;
 }
 
 - (void) viewWillAppear:(BOOL)animated

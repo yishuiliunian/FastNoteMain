@@ -10,6 +10,8 @@
 #import <YYModel.h>
 #import "CDCardStyleMapCell.h"
 #import "DZGeometryTools.h"
+#import "DZImageCache.h"
+#import "YHMapViewController.h"
 
 @interface CDCardStyleMapElement ()
 {
@@ -46,7 +48,7 @@
     CGRectDivide(contentRect, &dataR, &contentRect, 55, CGRectMinYEdge);
     
     CGRect rects[2];
-    CGRectHorizontalSplit(dataR, rects, 2, 2);
+    CGRectVerticalSplit(dataR, rects, 2, 2);
     _titleR = rects[0];
     _detailR = rects[1];
 
@@ -66,5 +68,17 @@
     
     responser.titleLabel.text = _mapData.title;
     responser.addressLabel.text = _mapData.detail;
+    responser.backgroundContentView.image = DZCachedImageByName(@"map_background");
+}
+
+- (void) handleSelectedInViewController:(UIViewController *)vc
+{
+    YHLocation* location = [YHLocation new];
+    location.longtitude = _mapData.longtitude;
+    location.latitude = _mapData.latitude;
+    location.name = _mapData.title;
+    location.address = _mapData.detail;
+    YHMapViewController* locationVC = [[YHMapViewController alloc] initWithLocation:location];
+    [vc.navigationController pushViewController:locationVC animated:YES];
 }
 @end
