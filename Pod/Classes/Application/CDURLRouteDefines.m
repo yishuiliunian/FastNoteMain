@@ -9,3 +9,4 @@
 #import "CDURLRouteDefines.h"
 
 NSString* kCDURLSHowPhotos = @"chatdaily://show/photo";
+NSString* kCDURLJoinCard = @"fastdiary://card/join";

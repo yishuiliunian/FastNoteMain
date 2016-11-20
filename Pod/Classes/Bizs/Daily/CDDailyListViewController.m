@@ -25,7 +25,7 @@
 {
     [super viewDidLoad];
     DZExtendShyNavigationBar(self.tableView, self);
-    self.tableView.backgroundColor = [UIColor flatMintColor];
+    self.tableView.backgroundColor = [UIColor flatSkyBlueColor];
 
 }
 - (void) viewWillLayoutSubviews
