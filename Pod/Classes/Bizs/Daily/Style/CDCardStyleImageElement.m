@@ -10,9 +10,9 @@
 #import "CDCardStyleImageCell.h"
 #import <DZImageCache.h>
 #import <DZFileUtils.h>
-#import "MWPhotoBrowser.h"
 #import "CDURLRouteDefines.h"
 #import <YYModel.h>
+#import "DZPhotoBrowser.h"
 
 @interface CDCardStyleImageElement()
 {
@@ -21,6 +21,7 @@
     CGRect _imageRect;
     NSString* _filePath;
 }
+@property (nonatomic, weak, readonly) CDCardStyleImageCell* cell;
 @end
 
 @implementation CDCardStyleImageElement
@@ -41,6 +42,11 @@
     _imageData = [CDCardImageData yy_modelWithJSON:self.cardModel.data];
     _filePath = _imageData.filePath;
     _filePath = DZPathJoin(DZDocumentsPath(), _filePath);
+}
+
+- (CDCardStyleImageCell*) cell
+{
+    return (CDCardStyleImageCell*)self.uiEventPool;
 }
 
 - (void) prelayoutContent:(CGRect)contentRect height:(CGFloat *)height
@@ -74,8 +80,9 @@
 - (void) handleSelectedInViewController:(UIViewController *)vc
 {
     NSMutableArray* array = [NSMutableArray new];
-    MWPhoto* photo = [[MWPhoto alloc] initWithImage:DZCachedImageByPath(_filePath)];
-    
+    DZPhoto* photo = [[DZPhoto alloc] init];
+    photo.image = DZCachedImageByPath(_filePath);
+    photo.sourceImageView = self.cell.contentImageView;
     DZRouteRequestContext* context = [DZRouteRequestContext new];
     [context setValue:@[photo] forKey:@"photos"];
     
