@@ -9,7 +9,6 @@
 #import "CDMainDirector.h"
 #import <DZURLRoute.h>
 #import "CDURLRouteDefines.h"
-#import "MWPhotoBrowser.h"
 #import <Bugly/Bugly.h>
 #import <TalkingData.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -20,6 +19,8 @@
 #import <YYModel/YYModel.h>
 #import "YHLocation.h"
 #import "CDDBConnection.h"
+#import "DZPhotoBrowser.h"
+#import <AVFoundation/AVFoundation.h>
 @implementation CDMainDirector
 
 - (instancetype) initWithRootScene:(EKElement *)rootScene
@@ -135,12 +136,14 @@
     [[DZURLRoute defaultRoute] addRoutePattern:kCDURLSHowPhotos handler:^DZURLRouteResponse *(DZURLRouteRequest *request) {
       
         NSArray* originPhotos = [request.context valueForKey:@"photos"];
-        MWPhotoBrowser* browser = [[MWPhotoBrowser alloc] initWithPhotos:originPhotos];
-        UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:browser];
-        [request.context.topViewController presentViewController:nav animated:YES completion:^{
+        int index = [[request.paramters valueForKey:@"index"] intValue];
+        DZPhotoBrowser * browser = [[DZPhotoBrowser alloc] initWithPhotos:originPhotos initializeIndex:index];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:browser];
+        nav.modalPresentationStyle = UIModalPresentationCustom;
+        nav.transitioningDelegate = browser.transitionAnimator;
+        [request.context.topNavigationController presentViewController:nav animated:YES completion:^{
             
         }];
-        
         return [DZURLRouteResponse successResponse];
     }];
 }
