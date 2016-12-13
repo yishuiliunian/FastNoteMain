@@ -26,7 +26,7 @@
     [inputVC registerLifeCircleAction:onceAction];
     
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:inputVC];
-    inputVC.title = @"FastDiary";
+    inputVC.title = NSLocalizedString(@"FastDiary", nil);
     return nav;
 }
 @end

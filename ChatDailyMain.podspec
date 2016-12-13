@@ -41,4 +41,5 @@ TODO: Add long description of the pod here.aaa
   s.dependency 'Bugly'
   s.dependency 'TalkingData-AppAnalytics'
   s.dependency 'CBStoreHouseRefreshControl'
+  s.dependency 'IAPHelper'
 end
