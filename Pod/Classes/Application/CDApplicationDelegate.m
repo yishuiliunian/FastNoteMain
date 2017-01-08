@@ -13,6 +13,7 @@
 
 - (void) loadDirector
 {
+
     self.director= [[CDMainDirector alloc] initWithRootScene:[CDInputViewControllerElement new]];
 }
 
