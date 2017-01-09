@@ -26,7 +26,7 @@
 #endif
     if(![IAPShare sharedHelper].iap) {
         
-        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"com.dzqpzb.fastdiary.doneta.1", nil];
+        NSSet* dataSet = [[NSSet alloc] initWithObjects:@"com.dzqpzb.fastdiary.doneta.2", nil];
         
         [IAPShare sharedHelper].iap = [[IAPHelper alloc] initWithProductIdentifiers:dataSet];
         
@@ -37,7 +37,8 @@
 {
     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"捐赠" message:@"捐赠开发者，让他开发更好用的软件" preferredStyle:UIAlertControllerStyleActionSheet];
     for (SKProduct* product in self.products) {
-        UIAlertAction* action = [UIAlertAction actionWithTitle:product.localizedTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString* title = product.localizedTitle?:@"捐赠";
+        UIAlertAction* action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[IAPShare sharedHelper].iap buyProduct:product
                                        onCompletion:^(SKPaymentTransaction* trans){
                                            if (trans.transactionState == SKPaymentTransactionStatePurchased) {
