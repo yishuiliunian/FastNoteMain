@@ -29,13 +29,7 @@
     UIRefreshControl* refreshControl = [UIRefreshControl new];
     [refreshControl addTarget:self action:@selector(pullToReferesh) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
-    
-
-
 }
-
-
-
 
 - (void) pullToReferesh
 {
