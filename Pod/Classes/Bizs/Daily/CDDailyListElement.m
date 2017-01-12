@@ -151,7 +151,7 @@
 {
     [self insertNewCard:^CDCardModel *{
         CDCardModel* model = [CDCardModel newCardWithType:CDCardAudio];
-        NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.acc",model.uuid]);
+        NSString* filepath = DZFileInSubPath(@"note-data", [NSString stringWithFormat:@"%@.%@",model.uuid, [url absoluteString].pathExtension]);
         NSURL* aimURL = [NSURL fileURLWithPath:filepath];
         NSError* error;
         [[NSFileManager defaultManager] moveItemAtURL:url toURL:aimURL error:&error];

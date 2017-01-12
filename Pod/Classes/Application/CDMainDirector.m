@@ -21,6 +21,7 @@
 #import "CDDBConnection.h"
 #import "DZPhotoBrowser.h"
 #import <AVFoundation/AVFoundation.h>
+#import <iflyMSC/IFlyMSC.h>
 @implementation CDMainDirector
 
 - (instancetype) initWithRootScene:(EKElement *)rootScene
@@ -128,6 +129,9 @@
         [self buildDemoData];
     }
     
+    NSString* initString = @"appid=587363de";
+    [IFlySpeechUtility createUtility:initString];
+    
     [DZImageShareCache setupAssetsSourceType];
     [Bugly startWithAppId:@"e35021ccc5"];
     [AMapServices sharedServices].apiKey = @"640feccb852747765634398a6365a64d";
@@ -146,6 +150,9 @@
         }];
         return [DZURLRouteResponse successResponse];
     }];
+    
+    
+    
 }
 - (void) makeKeyWindowAndVisible
 {
